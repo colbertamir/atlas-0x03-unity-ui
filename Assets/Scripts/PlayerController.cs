@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour 
 {
-    public float speed = 7f;
+    public float speed = 10f;
     public int health = 5;
+    public Text scoreText;
 
     private Rigidbody rb;
     private int score = 0;
@@ -14,6 +16,7 @@ public class PlayerController : MonoBehaviour
     void Start () 
     {
         rb = GetComponent<Rigidbody>();
+        SetScoreText(); // Calls the SetScoreText method when the game starts
     }
     
     void FixedUpdate () 
@@ -30,42 +33,48 @@ public class PlayerController : MonoBehaviour
         rb.MovePosition(transform.position + movement);
     }
 
-    // Function to handle collisions with objects
+    // Handles collisions
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Pickup")) // Check if tag is "Pickup"
+        if (other.CompareTag("Pickup")) // Tag is "Pickup"
         {
             // Increment the score
             score++;
 
-            // Log the updated score to console
-            Debug.Log("Score: " + score);
+            // Update the score text
+            SetScoreText();
 
             // Destroy the pickup object on contact
             Destroy(other.gameObject);
         }
-        else if (other.CompareTag("Trap")) // Check if tag is "Trap"
+        else if (other.CompareTag("Trap")) // Tag is "Trap"
         {
             // Decrement the health
             health--;
 
-            // Log the updated health to console
+            // Logs updated health to console
             Debug.Log("Health: " + health);
         }
-		else if (other.CompareTag("Goal")) // Check if tag is "Goal"
+		else if (other.CompareTag("Goal")) // Tag "Goal"
 		{
-			// Logs "You win!" to console
+			// "You win!" to console
 			Debug.Log("You win!");
 		}
     }
 
 	void Update()
 	{
-		// Check for game over
+		// Game over!
 		if (health <= 0)
 		{
 			Debug.Log("Game Over!");
 			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 		}
 	}
+
+    // Method to update the score text
+    void SetScoreText()
+    {
+        scoreText.text = "Score: " + score.ToString(); // Update the score text with current score
+    }
 }

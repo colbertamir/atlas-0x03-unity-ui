@@ -77,15 +77,11 @@ public class PlayerController : MonoBehaviour
             // Disable the collider of the Goal object to prevent triggering multiple times
             other.enabled = false;
         }
-    }
 
-    void Update()
-    {
-        // Game over!
+        // Check if health reaches 0
         if (health <= 0)
         {
-            Debug.Log("Game Over!");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            SetGameOver();
         }
     }
 
@@ -99,5 +95,28 @@ public class PlayerController : MonoBehaviour
     void SetHealthText()
     {
         healthText.text = "Health: " + health.ToString(); // Update the health text
+    }
+
+    // Method to set the game over state
+    void SetGameOver()
+    {
+        // Display "Game Over!" UI
+        winLoseText.text = "Game Over!";
+        // Changes the color of the win/lose text to white
+        winLoseText.color = Color.white;
+        // Changes the color of background to red
+        winLoseBG.color = Color.red;
+        // Enable the UI elements
+        winLoseText.gameObject.SetActive(true);
+        winLoseBG.gameObject.SetActive(true);
+        // Restart the game after a little delay
+        StartCoroutine(RestartGame());
+    }
+
+    IEnumerator RestartGame()
+    {
+        // Wait for 3 seconds before restarting the game
+        yield return new WaitForSeconds(3f);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

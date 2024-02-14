@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     public float speed = 10f;
     public int health = 5;
     public Text scoreText;
-
+    public Text healthText;
     private Rigidbody rb;
     private int score = 0;
 
@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         SetScoreText(); // Calls the SetScoreText method when the game starts
+        SetHealthText(); // Calls the SetHealthText method when the game starts
     }
     
     void FixedUpdate () 
@@ -52,8 +53,11 @@ public class PlayerController : MonoBehaviour
             // Decrement the health
             health--;
 
+            // Update the health text
+            SetHealthText();
+
             // Logs updated health to console
-            Debug.Log("Health: " + health);
+            // Debug.Log("Health: " + health);
         }
 		else if (other.CompareTag("Goal")) // Tag "Goal"
 		{
@@ -75,6 +79,12 @@ public class PlayerController : MonoBehaviour
     // Method to update the score text
     void SetScoreText()
     {
-        scoreText.text = "Score: " + score.ToString(); // Update the score text with current score
+        scoreText.text = "Score: " + score.ToString(); // Update the score text
+    }
+
+    // Method to update the health text
+    void SetHealthText()
+    {
+        healthText.text = "Health: " + health.ToString(); // Update the health text
     }
 }

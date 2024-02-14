@@ -2871,6 +2871,7 @@ MonoBehaviour:
   speed: 5
   health: 5
   scoreText: {fileID: 1561822299}
+  healthText: {fileID: 1006701320}
 --- !u!1001 &827980611
 Prefab:
   m_ObjectHideFlags: 0
@@ -3193,6 +3194,11 @@ Prefab:
       propertyPath: scoreText
       value: 
       objectReference: {fileID: 1561822299}
+    - target: {fileID: 114239292214523252, guid: 4dc7d343041b96f43864e5e13226a45b,
+        type: 2}
+      propertyPath: healthText
+      value: 
+      objectReference: {fileID: 1006701320}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4dc7d343041b96f43864e5e13226a45b, type: 2}
   m_IsPrefabParent: 0

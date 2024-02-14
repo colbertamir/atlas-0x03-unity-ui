@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     public int health = 5;
     public Text scoreText;
     public Text healthText;
+    public Text winLoseText;
+    public Image winLoseBG; 
     private Rigidbody rb;
     private int score = 0;
 
@@ -18,6 +20,11 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         SetScoreText(); // Calls the SetScoreText method when the game starts
         SetHealthText(); // Calls the SetHealthText method when the game starts
+        
+        // Ensure that the winLoseText and winLoseBG are initially deactivated 
+        
+        winLoseText.gameObject.SetActive(false); 
+        winLoseBG.gameObject.SetActive(false);
     }
     
     void FixedUpdate () 
@@ -55,26 +62,32 @@ public class PlayerController : MonoBehaviour
 
             // Update the health text
             SetHealthText();
-
-            // Logs updated health to console
-            // Debug.Log("Health: " + health);
         }
-		else if (other.CompareTag("Goal")) // Tag "Goal"
-		{
-			// "You win!" to console
-			Debug.Log("You win!");
-		}
+        else if (other.CompareTag("Goal")) // Tag "Goal"
+        {
+            // Display "You Win!" UI
+            winLoseText.text = "You Win!";
+            // Change the color of the win/lose text to black
+            winLoseText.color = Color.black;
+            // Change the color of background to green
+            winLoseBG.color = Color.green;
+            // Enable the UI elements
+            winLoseText.gameObject.SetActive(true);
+            winLoseBG.gameObject.SetActive(true);
+            // Disable the collider of the Goal object to prevent triggering multiple times
+            other.enabled = false;
+        }
     }
 
-	void Update()
-	{
-		// Game over!
-		if (health <= 0)
-		{
-			Debug.Log("Game Over!");
-			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-		}
-	}
+    void Update()
+    {
+        // Game over!
+        if (health <= 0)
+        {
+            Debug.Log("Game Over!");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+    }
 
     // Method to update the score text
     void SetScoreText()

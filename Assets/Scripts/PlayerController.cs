@@ -124,4 +124,14 @@ public class PlayerController : MonoBehaviour
         // Reload the current scene
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+
+    void Update()
+    {
+        // Check if the player presses the Esc key
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            // Load the menu scene
+            SceneManager.LoadScene("menu");
+        }
+    }
 }

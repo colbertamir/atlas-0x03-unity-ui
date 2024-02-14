@@ -76,6 +76,9 @@ public class PlayerController : MonoBehaviour
             winLoseBG.gameObject.SetActive(true);
             // Disable the collider of the Goal object to prevent triggering multiple times
             other.enabled = false;
+            
+            // Call LoadScene to restart the game after a delay
+            StartCoroutine(LoadScene(3f));
         }
 
         // Check if health reaches 0
@@ -110,13 +113,15 @@ public class PlayerController : MonoBehaviour
         winLoseText.gameObject.SetActive(true);
         winLoseBG.gameObject.SetActive(true);
         // Restart the game after a little delay
-        StartCoroutine(RestartGame());
+        StartCoroutine(LoadScene(3f));
     }
 
-    IEnumerator RestartGame()
+    // Coroutine to reload the scene after 3 sec
+    IEnumerator LoadScene(float seconds)
     {
-        // Wait for 3 seconds before restarting the game
-        yield return new WaitForSeconds(3f);
+        // Wait for the 3 secs
+        yield return new WaitForSeconds(seconds);
+        // Reload the current scene
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

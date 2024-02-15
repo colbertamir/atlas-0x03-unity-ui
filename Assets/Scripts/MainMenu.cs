@@ -23,4 +23,14 @@ public class MainMenu : MonoBehaviour
         // Load the maze scene
         SceneManager.LoadScene("maze");
     }
+
+    // Method to quit the game
+    public void QuitMaze()
+    {
+#if UNITY_EDITOR
+        Debug.Log("Quit Game"); // Logs message when running in Unity editor
+#else
+        Application.Quit(); // Quits game when running outside of Unity editor
+#endif
+    }
 }
